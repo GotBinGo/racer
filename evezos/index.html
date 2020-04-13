@@ -1,0 +1,95 @@
+<html>
+    <body style="margin: 0;">
+        <div style="display: flex; margin-top: 10%; margin-bottom: 2%;">
+            <div style="margin: 0; width: 20%;">
+            </div>
+            <div style="margin: 0; width: 30%;">
+                <button onclick="down()">
+                    Down
+                </button>
+                <button onclick="up()">
+                    Up
+                </button>
+                <span id="txt">
+1
+                </span>
+            </div>
+            <div style="margin: 0; width: 20%;">
+            </div>
+            <div style="margin: 0; width: 30%;">
+                <button onclick="down2()">
+                    Down
+                </button>
+                <button onclick="up2()">
+                    Up
+                </button>
+                <span id="txt2">
+1
+                </span>
+            </div>
+        </div>
+        
+        
+        <div style="display: flex;">
+            <video id="vid" autoplay loop style="margin: 0; width: 50%;">
+                <source src="a.mp4" type="video/mp4">
+            </video>
+            <div style="height: 20px; width: 10%; display: flex; align-items: center; justify-content: center;">
+                <button onclick="start()">
+                    Start
+                </button>
+            </div>
+            <video id="vid2" autoplay loop style="margin: 0; width: 50%;">
+                <source src="a.mp4" type="video/mp4">
+            </video>
+            <script>
+                speed = 1;
+                speed2 = 1;
+                start = function () {
+                    document.getElementById('vid').play();
+                    document.getElementById('vid2').play();
+                    print()
+                }
+                up = function () {
+                    speed = speed + 0.1;
+                    document.getElementById('vid').playbackRate = speed;
+
+                    document.getElementById('vid').play();
+                    print()
+                }
+                down = function () {
+                    
+                    speed = speed - 0.1;
+
+                    if(speed <= 0.1) {
+                        speed = 0;
+                        document.getElementById('vid').pause();
+                    } else {
+                        document.getElementById('vid').playbackRate = speed+0.0001;
+                    }
+                    print()
+                }
+                up2 = function () {
+                    speed2 = speed2 + 0.1;
+                    document.getElementById('vid2').playbackRate = speed2;
+                    document.getElementById('vid2').play();
+                    print()
+                }
+                down2 = function () {
+                    speed2 = speed2 - 0.1;
+                    if(speed2 <= 0.0) {
+                        speed2 = 0;
+                        document.getElementById('vid2').pause();
+                    } else {
+                        document.getElementById('vid2').playbackRate = speed2+0.0001;
+                    }
+                    print()
+                }
+                print = function () {
+                    document.getElementById('txt').innerHTML = (~~(speed*10)/10);
+                    document.getElementById('txt2').innerHTML = (~~(speed2*10)/10);
+                }
+            </script>
+        </div>
+    </body>
+</html>
