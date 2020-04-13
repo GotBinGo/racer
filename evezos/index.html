@@ -1,94 +1,88 @@
 <html>
     <body style="margin: 0;">
         <div style="display: flex; margin-top: 10%; margin-bottom: 2%;">
-            <div style="margin: 0; width: 20%;">
+            <div style="margin: 0; width: 15%;">
             </div>
-            <div style="margin: 0; width: 30%;">
-                <button onclick="down()">
-                    Down
-                </button>
-                <button onclick="up()">
-                    Up
-                </button>
+            <div style="margin: 0; width: 35%;">
+                Sebesség:
+                <input id="slider1" min="0" max="2" value="1" step="0.1" type="range" />
                 <span id="txt">
-1
+                    1
                 </span>
             </div>
             <div style="margin: 0; width: 20%;">
             </div>
             <div style="margin: 0; width: 30%;">
-                <button onclick="down2()">
-                    Down
-                </button>
-                <button onclick="up2()">
-                    Up
-                </button>
+                Sebesség:
+                <input id="slider2" min="0" max="2" value="1" step="0.1" type="range" />
                 <span id="txt2">
-1
+                    1
                 </span>
             </div>
         </div>
-        
-        
+
         <div style="display: flex;">
-            <video id="vid" autoplay loop style="margin: 0; width: 50%;">
+            <video id="vid"  style="margin: 0; width: 50%;">
                 <source src="a.mp4" type="video/mp4">
             </video>
+            <div style="margin-left:5px; width:15px; display: flex; flex-direction: column" > 
+                <div id="bar1felso" style="flex-grow:1000; background:gray; ">
+                </div>
+                <div id="bar1also" style="flex-grow:1; background:blue;">
+                </div>
+            </div>
             <div style="height: 20px; width: 10%; display: flex; align-items: center; justify-content: center;">
-                <button onclick="start()">
+                <button onclick="play()">
                     Start
                 </button>
             </div>
-            <video id="vid2" autoplay loop style="margin: 0; width: 50%;">
+            <div style="margin-right:5px; width:15px; display: flex; flex-direction: column" > 
+                <div id="bar2felso" style="flex-grow:1000; background:gray; ">
+                </div>
+                <div id="bar2also" style="flex-grow:1; background:blue;">
+                </div>
+            </div>
+            <video id="vid2"  style="margin: 0; width: 50%;">
                 <source src="a.mp4" type="video/mp4">
             </video>
             <script>
-                speed = 1;
-                speed2 = 1;
-                start = function () {
+                var slider1 = document.getElementById("slider1");
+                var slider2 = document.getElementById("slider2");
+                function play(){
                     document.getElementById('vid').play();
                     document.getElementById('vid2').play();
-                    print()
+                    slider1.value=0.1;
+                    slider2.value=0.1;
+                    slider1.oninput();
+                    slider2.oninput();
+                    /*document.getElementById('vid').playbackRate = 0.1;
+                    document.getElementById('vid2').playbackRate = 0.1;*/
                 }
-                up = function () {
-                    speed = speed + 0.1;
-                    document.getElementById('vid').playbackRate = speed;
+                
+                slider1.oninput = function() {
+                  document.getElementById('vid').playbackRate = this.value;
+                  document.getElementById('txt').innerHTML = this.value;
+                }
 
-                    document.getElementById('vid').play();
-                    print()
+                
+                slider2.oninput = function() {
+                  document.getElementById('vid2').playbackRate = this.value;
+                  document.getElementById('txt2').innerHTML = this.value;
                 }
-                down = function () {
-                    
-                    speed = speed - 0.1;
 
-                    if(speed <= 0.1) {
-                        speed = 0;
-                        document.getElementById('vid').pause();
-                    } else {
-                        document.getElementById('vid').playbackRate = speed+0.0001;
-                    }
-                    print()
+                setInterval(function(){
+                    setBars();
+                },500);
+                function setBars(){
+                    let t1 = document.getElementById('vid').currentTime;
+                    let t2 = document.getElementById('vid2').currentTime;
+                    let length = document.getElementById('vid').duration;
+                    document.getElementById("bar1also").style.flexGrow = t1/length; 
+                    document.getElementById("bar1felso").style.flexGrow = (length-t1)/length;
+                    document.getElementById("bar2also").style.flexGrow = t2/length; 
+                    document.getElementById("bar2felso").style.flexGrow = (length-t2)/length;
                 }
-                up2 = function () {
-                    speed2 = speed2 + 0.1;
-                    document.getElementById('vid2').playbackRate = speed2;
-                    document.getElementById('vid2').play();
-                    print()
-                }
-                down2 = function () {
-                    speed2 = speed2 - 0.1;
-                    if(speed2 <= 0.0) {
-                        speed2 = 0;
-                        document.getElementById('vid2').pause();
-                    } else {
-                        document.getElementById('vid2').playbackRate = speed2+0.0001;
-                    }
-                    print()
-                }
-                print = function () {
-                    document.getElementById('txt').innerHTML = (~~(speed*10)/10);
-                    document.getElementById('txt2').innerHTML = (~~(speed2*10)/10);
-                }
+
             </script>
         </div>
     </body>
