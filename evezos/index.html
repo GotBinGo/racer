@@ -22,7 +22,7 @@
         </div>
 
         <div style="display: flex;">
-            <video id="vid"  style="margin: 0; width: 50%;">
+            <video id="vid" muted style="margin: 0; flex-grow:1; width:10%">
                 <source src="a.mp4" type="video/mp4">
             </video>
             <div style="margin-left:5px; width:15px; display: flex; flex-direction: column" > 
@@ -42,7 +42,7 @@
                 <div id="bar2also" style="flex-grow:1; background:blue;">
                 </div>
             </div>
-            <video id="vid2"  style="margin: 0; width: 50%;">
+            <video muted id="vid2"  style="margin: 0;flex-grow:1;width:10%">
                 <source src="a.mp4" type="video/mp4">
             </video>
             <script>
@@ -72,7 +72,7 @@
 
                 setInterval(function(){
                     setBars();
-                },500);
+                },300);
                 function setBars(){
                     let t1 = document.getElementById('vid').currentTime;
                     let t2 = document.getElementById('vid2').currentTime;
